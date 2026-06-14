@@ -2,16 +2,825 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>测测你的理财人格</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-ibGIx30T.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-wqikNbAa.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Noto Sans SC', system-ui, sans-serif;
+        background: linear-gradient(135deg, #1E3A5F 0%, #2E5A8F 100%);
+        min-height: 100vh;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-button {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        transition: all 0.3s ease;
+      }
+
+      .gradient-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .geometric-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .flex { display: flex; }
+      .flex-col { flex-direction: column; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .min-h-screen { min-height: 100vh; }
+      .px-4 { padding-left: 1rem; padding-right: 1rem; }
+      .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+      .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+      .mx-auto { margin-left: auto; margin-right: auto; }
+      .max-w-xl { max-width: 36rem; }
+      .max-w-2xl { max-width: 42rem; }
+      .w-full { width: 100%; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .mb-8 { margin-bottom: 2rem; }
+      .mt-6 { margin-top: 1.5rem; }
+      .mt-8 { margin-top: 2rem; }
+      .text-center { text-align: center; }
+      .text-white { color: #fff; }
+      .text-gray-800 { color: #1f2937; }
+      .text-gray-700 { color: #374151; }
+      .text-gray-600 { color: #4b5563; }
+      .text-yellow-400 { color: #fbbf24; }
+      .text-blue-600 { color: #2563eb; }
+      .text-green-400 { color: #4ade80; }
+      .text-xl { font-size: 1.25rem; }
+      .text-2xl { font-size: 1.5rem; }
+      .text-3xl { font-size: 1.875rem; }
+      .text-5xl { font-size: 3rem; }
+      .font-bold { font-weight: 700; }
+      .font-black { font-weight: 900; }
+      .bg-white { background-color: #fff; }
+      .bg-gray-100 { background-color: #f3f4f6; }
+      .bg-blue-100 { background-color: #dbeafe; }
+      .bg-yellow-100 { background-color: #fef3c7; }
+      .bg-primary { background-color: #1E3A5F; }
+      .bg-gray-200 { background-color: #e5e7eb; }
+      .rounded-xl { border-radius: 0.75rem; }
+      .rounded-2xl { border-radius: 1rem; }
+      .rounded-3xl { border-radius: 1.5rem; }
+      .rounded-full { border-radius: 9999px; }
+      .p-4 { padding: 1rem; }
+      .p-5 { padding: 1.25rem; }
+      .p-6 { padding: 1.5rem; }
+      .p-8 { padding: 2rem; }
+      .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+      .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+      .border { border-width: 1px; }
+      .border-2 { border-width: 2px; }
+      .border-gray-200 { border-color: #e5e7eb; }
+      .border-primary { border-color: #1E3A5F; }
+      .border-white\/10 { border-color: rgba(255, 255, 255, 0.1); }
+      .backdrop-blur-sm { backdrop-filter: blur(8px); }
+      .opacity-60 { opacity: 0.6; }
+      .opacity-40 { opacity: 0.4; }
+      .cursor-not-allowed { cursor: not-allowed; }
+      .transition-all { transition-property: all; }
+      .duration-200 { transition-duration: 200ms; }
+      .hover\:bg-gray-200:hover { background-color: #e5e7eb; }
+      .hover\:bg-gray-50:hover { background-color: #f9fafb; }
+      .hover\:border-primary\/50:hover { border-color: rgba(30, 58, 95, 0.5); }
+
+      @media (min-width: 768px) {
+        .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .md\:text-6xl { font-size: 3.75rem; }
+        .md\:flex-row { flex-direction: row; }
+      }
+
+      .grid { display: grid; }
+      .gap-4 { gap: 1rem; }
+      .relative { position: relative; }
+      .absolute { position: absolute; }
+      .top-20 { top: 5rem; }
+      .bottom-40 { bottom: 10rem; }
+      .left-10 { left: 2.5rem; }
+      .right-10 { right: 2.5rem; }
+      .right-20 { right: 5rem; }
+      .w-20 { width: 5rem; }
+      .h-20 { height: 5rem; }
+      .w-32 { width: 8rem; }
+      .h-32 { height: 8rem; }
+      .w-16 { width: 4rem; }
+      .h-16 { height: 4rem; }
+      .w-12 { width: 3rem; }
+      .h-12 { height: 3rem; }
+      .w-10 { width: 2.5rem; }
+      .h-10 { height: 2.5rem; }
+      .w-8 { width: 2rem; }
+      .h-8 { height: 2rem; }
+      .w-6 { width: 1.5rem; }
+      .h-6 { height: 1.5rem; }
+      .rotate-45 { transform: rotate(45deg); }
+      .rotate-12 { transform: rotate(12deg); }
+      .z-10 { z-index: 10; }
+      .flex-shrink-0 { flex-shrink: 0; }
+      .leading-relaxed { line-height: 1.625; }
+
+      .progress-bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(to right, #FFD700, #FFA500);
+        transition: width 0.3s ease;
+      }
+
+      .option-btn {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        border: 2px solid #e5e7eb;
+        text-align: left;
+        transition: all 0.2s ease;
+      }
+
+      .option-btn:hover:not(:disabled) {
+        border-color: rgba(30, 58, 95, 0.5);
+        background-color: #f9fafb;
+      }
+
+      .option-btn.selected {
+        border-color: #1E3A5F;
+        background-color: rgba(30, 58, 95, 0.05);
+      }
+
+      .option-btn.selected .option-radio {
+        background-color: #1E3A5F;
+        border-color: #1E3A5F;
+      }
+
+      .option-radio {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        border: 2px solid #d1d5db;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .nav-btn {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 9999px;
+        font-weight: 700;
+        font-size: 1.125rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .nav-btn:disabled {
+        background-color: #e5e7eb;
+        color: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      .profile-badge {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .trait-item, .advice-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .trait-icon, .advice-number {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.75rem;
+      }
+
+      .trait-icon {
+        background-color: #f3f4f6;
+      }
+
+      .advice-number {
+        background-color: #fef3c7;
+        color: #d97706;
+        font-weight: 700;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      const questions = [
+        {
+          id: 1,
+          text: '当你有一笔闲钱时，你会怎么处理？',
+          options: [
+            { text: '存入银行定期，资金安全最重要', score: 1 },
+            { text: '一部分存定期，一部分买稳健型理财', score: 2 },
+            { text: '投资股票或基金，追求更高收益', score: 3 },
+            { text: '投入高风险高回报的项目搏一搏', score: 4 },
+          ],
+        },
+        {
+          id: 2,
+          text: '你的投资经验有多丰富？',
+          options: [
+            { text: '完全新手，只存过银行存款', score: 1 },
+            { text: '有一些了解，买过余额宝等宝宝类产品', score: 2 },
+            { text: '有3-5年经验，股票基金都有涉足', score: 3 },
+            { text: '资深投资者，各种投资品种都玩过', score: 4 },
+          ],
+        },
+        {
+          id: 3,
+          text: '如果你的投资亏损了20%，你会怎么做？',
+          options: [
+            { text: '立刻割肉出局，保住剩余本金', score: 1 },
+            { text: '先观望一段时间再说', score: 2 },
+            { text: '趁低加仓，摊薄成本', score: 3 },
+            { text: '这是正常波动，继续持有甚至加仓', score: 4 },
+          ],
+        },
+        {
+          id: 4,
+          text: '你每月的储蓄率大约是多少？',
+          options: [
+            { text: '收入的10%以下', score: 1 },
+            { text: '收入的10%-30%', score: 2 },
+            { text: '收入的30%-50%', score: 3 },
+            { text: '收入的50%以上', score: 4 },
+          ],
+        },
+        {
+          id: 5,
+          text: '你能承受的最大投资损失是多少？',
+          options: [
+            { text: '不能接受任何亏损', score: 1 },
+            { text: '最多5%-10%的亏损', score: 2 },
+            { text: '可以接受20%-30%的亏损', score: 3 },
+            { text: '即使亏损50%也能接受', score: 4 },
+          ],
+        },
+        {
+          id: 6,
+          text: '你更倾向于哪种投资方式？',
+          options: [
+            { text: '银行存款、国债等保本型', score: 1 },
+            { text: '银行理财、债券型基金', score: 2 },
+            { text: '股票、混合型基金', score: 3 },
+            { text: '期货、数字货币等激进型', score: 4 },
+          ],
+        },
+        {
+          id: 7,
+          text: '你关注投资信息的频率是？',
+          options: [
+            { text: '很少关注，存钱就够了', score: 1 },
+            { text: '偶尔看看，不频繁操作', score: 2 },
+            { text: '每天都会看盘关注动态', score: 3 },
+            { text: '实时盯盘，频繁交易', score: 4 },
+          ],
+        },
+        {
+          id: 8,
+          text: '你进行投资决策的主要依据是？',
+          options: [
+            { text: '银行推荐和家人意见', score: 1 },
+            { text: '平台排行榜和明星产品', score: 2 },
+            { text: '自己学习和分析研究', score: 3 },
+            { text: '消息面和小道消息', score: 4 },
+          ],
+        },
+      ];
+
+      const profiles = [
+        {
+          type: 'conservative',
+          name: '稳健投资者',
+          title: '保守型',
+          description: '你是一个谨慎小心的投资者，注重资金安全，讨厌冒险。即使收益低一点，也要确保本金不受损失。',
+          traits: [
+            '风险厌恶，优先考虑本金安全',
+            '投资风格稳健，偏好保本型产品',
+            '决策谨慎，不会冲动投资',
+            '适合长期持有低风险产品',
+          ],
+          advice: [
+            '建议配置：国债、大额存单、货币基金',
+            '避免高杠杆、期货等高风险产品',
+            '分散投资，降低单一风险',
+            '保持充足应急储备金',
+          ],
+          color: '#4CAF50',
+          icon: '稳',
+        },
+        {
+          type: 'balanced',
+          name: '平衡投资者',
+          title: '平衡型',
+          description: '你是一个理性稳健的投资者，既追求收益，也注重风险平衡。懂得分散投资的重要性。',
+          traits: [
+            '风险中性，追求稳健增值',
+            '懂得分散投资，不把鸡蛋放一个篮子',
+            '投资风格稳健但不保守',
+            '善于学习和总结投资经验',
+          ],
+          advice: [
+            '建议配置：债券基金、指数基金、蓝筹股',
+            '股债平衡配置，降低整体风险',
+            '定投指数基金，长期持有',
+            '定期检视投资组合，适时调整',
+          ],
+          color: '#2196F3',
+          icon: '衡',
+        },
+        {
+          type: 'aggressive',
+          name: '进取投资者',
+          title: '进取型',
+          description: '你是一个积极进取的投资者，愿意承担一定风险来追求更高收益。对投资有热情和信心。',
+          traits: [
+            '风险承受力较强',
+            '追求高收益，投资风格积极',
+            '善于把握市场机会',
+            '有较强的学习能力和抗压能力',
+          ],
+          advice: [
+            '建议配置：股票、股票型基金、REITs',
+            '适度配置成长型资产',
+            '注意止损，控制回撤',
+            '持续学习，提升投资技能',
+          ],
+          color: '#FF9800',
+          icon: '进',
+        },
+        {
+          type: 'adventurous',
+          name: '冒险投资者',
+          title: '冒险型',
+          description: '你是一个大胆激进的投资者，热爱高风险高回报，愿意为追求极致收益承担较大波动。',
+          traits: [
+            '高风险偏好，享受波动',
+            '投资风格激进，仓位较重',
+            '心理承受能力强',
+            '喜欢尝试新鲜投资品种',
+          ],
+          advice: [
+            '建议配置：股票、期货、数字货币等',
+            '严格控制杠杆比例',
+            '务必做好止损纪律',
+            '保持充足现金流，避免满仓',
+          ],
+          color: '#E91E63',
+          icon: '勇',
+        },
+      ];
+
+      function calculateProfile(totalScore) {
+        let profileType;
+        if (totalScore <= 16) {
+          profileType = 'conservative';
+        } else if (totalScore <= 24) {
+          profileType = 'balanced';
+        } else if (totalScore <= 28) {
+          profileType = 'aggressive';
+        } else {
+          profileType = 'adventurous';
+        }
+        return profiles.find(p => p.type === profileType) || profiles[0];
+      }
+
+      class QuizApp {
+        constructor() {
+          this.currentPage = 'home';
+          this.currentQuestion = 0;
+          this.answers = [];
+          this.score = 0;
+          this.profile = null;
+          this.init();
+        }
+
+        init() {
+          this.render();
+        }
+
+        render() {
+          const root = document.getElementById('root');
+          switch (this.currentPage) {
+            case 'home':
+              root.innerHTML = this.renderHome();
+              this.bindHomeEvents();
+              break;
+            case 'quiz':
+              root.innerHTML = this.renderQuiz();
+              this.bindQuizEvents();
+              break;
+            case 'result':
+              root.innerHTML = this.renderResult();
+              this.bindResultEvents();
+              break;
+          }
+        }
+
+        renderHome() {
+          return `
+            <div class="min-h-screen geometric-bg flex flex-col items-center justify-center px-4 py-12">
+              <div class="absolute top-20 left-10 w-20 h-20 border border-yellow-400/20 rotate-45 animate-float"></div>
+              <div class="absolute bottom-40 right-10 w-32 h-32 border border-green-400/20 rounded-full animate-float" style="animation-delay: 1s"></div>
+              <div class="absolute top-1/3 right-20 w-16 h-16 bg-gradient-to-br from-yellow-400/10 to-transparent rounded-lg rotate-12"></div>
+              
+              <div class="max-w-2xl mx-auto text-center relative z-10">
+                <div class="mb-8 animate-fade-in-up">
+                  <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl shadow-lg">
+                    <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                      <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                  </div>
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-black text-white mb-4 animate-fade-in-up" style="animation-delay: 0.2s">
+                  测测你的理财人格
+                </h1>
+
+                <div class="mb-8 animate-fade-in-up" style="animation-delay: 0.3s">
+                  <span class="text-2xl gradient-text font-bold">8道题 · 发现你的投资画像</span>
+                  <p class="text-white/60 mt-3 text-lg">通过科学的理财人格测试，了解你的风险偏好和投资风格</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 animate-fade-in-up" style="animation-delay: 0.4s">
+                  <div class="feature-card card-hover">
+                    <svg class="w-8 h-8 text-green-400 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <h3 class="text-white font-bold mb-2">专业科学</h3>
+                    <p class="text-white/60 text-sm">基于经典投资心理学理论设计</p>
+                  </div>
+                  <div class="feature-card card-hover">
+                    <svg class="w-8 h-8 text-yellow-400 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+                      <path d="M5 3v4"></path>
+                      <path d="M19 17v4"></path>
+                      <path d="M3 5h4"></path>
+                      <path d="M17 19h4"></path>
+                    </svg>
+                    <h3 class="text-white font-bold mb-2">趣味互动</h3>
+                    <p class="text-white/60 text-sm">轻松有趣的测试体验</p>
+                  </div>
+                  <div class="feature-card card-hover">
+                    <svg class="w-8 h-8 text-blue-400 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                      <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    <h3 class="text-white font-bold mb-2">实用建议</h3>
+                    <p class="text-white/60 text-sm">获得针对性的理财建议</p>
+                  </div>
+                </div>
+
+                <div class="animate-fade-in-up" style="animation-delay: 0.5s">
+                  <button id="startBtn" class="gradient-button text-primary font-bold text-xl px-12 py-4 rounded-full shadow-lg flex items-center gap-3 mx-auto">
+                    开始测试
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <p class="text-white/40 text-sm mt-12">已有 <span class="text-yellow-400 font-bold">10,000+</span> 人测出理财人格</p>
+              </div>
+
+              <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary to-transparent"></div>
+            </div>
+          `;
+        }
+
+        bindHomeEvents() {
+          document.getElementById('startBtn').addEventListener('click', () => {
+            this.currentPage = 'quiz';
+            this.currentQuestion = 0;
+            this.answers = [];
+            this.score = 0;
+            this.profile = null;
+            this.render();
+          });
+        }
+
+        renderQuiz() {
+          const currentQ = questions[this.currentQuestion];
+          const progress = ((this.currentQuestion + 1) / questions.length) * 100;
+          
+          return `
+            <div class="min-h-screen geometric-bg flex flex-col px-4 py-8">
+              <div class="max-w-xl mx-auto w-full mb-8">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-white/60 text-sm">第 ${this.currentQuestion + 1} 题 / 共 ${questions.length} 题</span>
+                  <span class="text-yellow-400 font-bold">${Math.round(progress)}%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+              </div>
+
+              <div class="max-w-xl mx-auto w-full">
+                <div class="bg-white rounded-2xl shadow-2xl p-8 card-hover">
+                  <div class="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl mb-6">
+                    <span class="text-primary font-bold text-lg">${currentQ.id}</span>
+                  </div>
+
+                  <h2 class="text-2xl font-bold text-gray-800 mb-8 leading-relaxed">${currentQ.text}</h2>
+
+                  <div class="space-y-4">
+                    ${currentQ.options.map((option, index) => `
+                      <button class="option-btn" data-index="${index}">
+                        <div class="option-radio">
+                          <svg class="w-5 h-5 text-white hidden" data-index="${index}">
+                            <path d="M20 6 9 17l-5-5"></path>
+                          </svg>
+                        </div>
+                        <span class="font-medium text-gray-700">${option.text}</span>
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <button id="nextBtn" disabled class="nav-btn bg-gray-200 text-gray-400">
+                    ${this.currentQuestion === questions.length - 1 ? '查看结果' : '下一题'}
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        bindQuizEvents() {
+          const options = document.querySelectorAll('.option-btn');
+          let selectedIndex = null;
+
+          options.forEach((option, index) => {
+            option.addEventListener('click', () => {
+              selectedIndex = index;
+              options.forEach((opt, i) => {
+                if (i === index) {
+                  opt.classList.add('selected');
+                  opt.querySelector('.option-radio svg').classList.remove('hidden');
+                } else {
+                  opt.classList.remove('selected');
+                  opt.querySelector('.option-radio svg').classList.add('hidden');
+                }
+              });
+              document.getElementById('nextBtn').disabled = false;
+              document.getElementById('nextBtn').className = 'nav-btn gradient-button text-primary';
+            });
+          });
+
+          document.getElementById('nextBtn').addEventListener('click', () => {
+            if (selectedIndex !== null) {
+              const score = questions[this.currentQuestion].options[selectedIndex].score;
+              this.answers.push(score);
+              this.score += score;
+
+              if (this.currentQuestion === questions.length - 1) {
+                this.profile = calculateProfile(this.score);
+                this.currentPage = 'result';
+              } else {
+                this.currentQuestion++;
+              }
+              this.render();
+            }
+          });
+        }
+
+        renderResult() {
+          if (!this.profile) return '<div class="min-h-screen flex items-center justify-center"><p class="text-white">加载中...</p></div>';
+
+          return `
+            <div class="min-h-screen geometric-bg py-12 px-4">
+              <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-8">
+                  <h1 class="text-3xl font-black text-white mb-2">测试完成！</h1>
+                  <p class="text-white/60">恭喜你发现了自己的理财人格</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-2xl text-center mb-6">
+                  <div class="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6" style="background-color: ${this.profile.color}20">
+                    <div class="profile-badge" style="background-color: ${this.profile.color}">
+                      ${this.profile.icon}
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <span class="text-sm font-bold px-4 py-1 rounded-full" style="background-color: ${this.profile.color}20; color: ${this.profile.color}">
+                      ${this.profile.title}
+                    </span>
+                  </div>
+
+                  <h2 class="text-3xl font-black text-gray-800 mb-4">${this.profile.name}</h2>
+                  <p class="text-gray-600 leading-relaxed">${this.profile.description}</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <path d="m9 11 3 3L22 4"></path>
+                      </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">性格特征</h3>
+                  </div>
+                  <div class="space-y-3">
+                    ${this.profile.traits.map((trait, index) => `
+                      <div class="trait-item">
+                        <div class="trait-icon">
+                          <svg class="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            ${['shield', 'trending-up', 'zap', 'award'][index % 4] === 'shield' ? '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>' : ''}
+                            ${['shield', 'trending-up', 'zap', 'award'][index % 4] === 'trending-up' ? '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline>' : ''}
+                            ${['shield', 'trending-up', 'zap', 'award'][index % 4] === 'zap' ? '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>' : ''}
+                            ${['shield', 'trending-up', 'zap', 'award'][index % 4] === 'award' ? '<circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>' : ''}
+                          </svg>
+                        </div>
+                        <span class="text-gray-600">${trait}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center">
+                      <svg class="w-5 h-5 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+                        <path d="M9 18h6"></path>
+                        <path d="M10 22h4"></path>
+                      </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">理财建议</h3>
+                  </div>
+                  <div class="space-y-3">
+                    ${this.profile.advice.map((advice, index) => `
+                      <div class="advice-item">
+                        <div class="advice-number">${index + 1}</div>
+                        <span class="text-gray-600">${advice}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <button id="restartBtn" class="flex-1 py-4 px-6 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-full flex items-center justify-center gap-2 transition-all">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                      <path d="M21 3v5h-5"></path>
+                      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                      <path d="M8 16H3v5"></path>
+                    </svg>
+                    重新测试
+                  </button>
+                  <button id="shareBtn" class="flex-1 py-4 px-6 gradient-button text-primary font-bold rounded-full flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="18" cy="5" r="3"></circle>
+                      <circle cx="6" cy="12" r="3"></circle>
+                      <circle cx="18" cy="19" r="3"></circle>
+                      <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                      <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                    </svg>
+                    分享结果
+                  </button>
+                </div>
+
+                <p class="text-center text-white/40 text-sm mt-8">本测试仅供参考，投资有风险，决策需谨慎</p>
+              </div>
+            </div>
+          `;
+        }
+
+        bindResultEvents() {
+          document.getElementById('restartBtn').addEventListener('click', () => {
+            this.currentPage = 'home';
+            this.currentQuestion = 0;
+            this.answers = [];
+            this.score = 0;
+            this.profile = null;
+            this.render();
+          });
+
+          document.getElementById('shareBtn').addEventListener('click', () => {
+            const shareText = `我测出了「${this.profile.name}」理财人格！${this.profile.description} 快来测测你的理财人格吧！`;
+            
+            if (navigator.share) {
+              navigator.share({
+                title: '测测你的理财人格',
+                text: shareText,
+              }).catch(() => {
+                this.copyToClipboard(shareText);
+              });
+            } else {
+              this.copyToClipboard(shareText);
+            }
+          });
+        }
+
+        copyToClipboard(text) {
+          navigator.clipboard.writeText(text).then(() => {
+            const shareBtn = document.getElementById('shareBtn');
+            shareBtn.innerHTML = '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> 已复制';
+            setTimeout(() => {
+              shareBtn.innerHTML = '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg> 分享结果';
+            }, 2000);
+          });
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        new QuizApp();
+      });
+    </script>
   </body>
 </html>
